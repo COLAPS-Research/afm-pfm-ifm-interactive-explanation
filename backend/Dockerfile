@@ -14,13 +14,13 @@ RUN npm ci --only=production
 COPY . .
 
 # Create a non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S backend -u 1001
+RUN addgroup -S modelingo
+RUN adduser -S modelingo-backend
 
 # Create data and backup directories and set permissions
 RUN mkdir -p /app/data /app/backups && \
-    chown -R backend:nodejs /app
-USER backend
+    chown -R modelingo-backend:modelingo /app
+USER modelingo-backend
 
 # Expose port
 EXPOSE 3001

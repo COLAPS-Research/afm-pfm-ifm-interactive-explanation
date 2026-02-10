@@ -28,13 +28,13 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Add a non-root user
-RUN addgroup -g 1001 -S nginx-user && \
-    adduser -S frontend -u 1001 -G nginx-user && \
-    chown -R frontend:nginx-user /var/cache/nginx && \
-    chown -R frontend:nginx-user /var/log/nginx && \
-    chown -R frontend:nginx-user /etc/nginx/conf.d && \
-    chown -R frontend:nginx-user /usr/share/nginx/html && \
-    sed -i 's/user  nginx;/user  frontend nginx-user;/' /etc/nginx/nginx.conf
+RUN addgroup -S modelingo-nginx && \
+    adduser -S modelingo-frontend -G modelingo-nginx && \
+    chown -R modelingo-frontend:modelingo-nginx /var/cache/nginx && \
+    chown -R modelingo-frontend:modelingo-nginx /var/log/nginx && \
+    chown -R modelingo-frontend:modelingo-nginx /etc/nginx/conf.d && \
+    chown -R modelingo-frontend:modelingo-nginx /usr/share/nginx/html && \
+    sed -i 's/user  nginx;/user  modelingo-frontend modelingo-nginx;/' /etc/nginx/nginx.conf
 
 # Expose port
 EXPOSE 8080

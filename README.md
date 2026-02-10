@@ -4,6 +4,7 @@
 
 1. nginx.conf not working as expected
 2. might require to change permissions on specific directories to make logging work
+3. cors is hardcoded
 
 ## Quick Start
 
