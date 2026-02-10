@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   backend:
-    image: blueberryhub92/modelingo:backend-latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: afm-backend:local
     container_name: afm-backend
     restart: unless-stopped
     ports:
@@ -12,7 +15,10 @@ services:
       - ./backups:/app/backups
 
   frontend:
-    image: blueberryhub92/modelingo:frontend-latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: afm-frontend:local
     container_name: afm-frontend
     restart: unless-stopped
     ports:

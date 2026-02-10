@@ -1,5 +1,10 @@
 # Modelingo
 
+## Deployment issues
+
+1. nginx.conf not working as expected
+2. might require to change permissions on specific directories to make logging work
+
 ## Quick Start
 
 1. Create a new directory and navigate into it:

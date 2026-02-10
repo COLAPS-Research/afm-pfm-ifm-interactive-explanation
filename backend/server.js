@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const DATA_DIR = path.join(__dirname, 'data');
 const BACKUP_DIR = path.join(__dirname, 'backups');
+const EVENTS_FILE = path.join(DATA_DIR, 'events.json');
 
 // Middleware
 const corsOptions = {
@@ -52,6 +53,14 @@ const ensureDirectories = async () => {
     await fs.access(BACKUP_DIR);
   } catch {
     await fs.mkdir(BACKUP_DIR, { recursive: true });
+  }
+};
+
+const ensureDataFiles = async () => {
+  try {
+    await fs.access(EVENTS_FILE);
+  } catch {
+    await fs.writeFile(EVENTS_FILE, '[]');
   }
 };
 
@@ -468,7 +477,7 @@ app.use((req, res) => {
 });
 
 // Initialize directories and start server
-ensureDirectories().then(() => {
+ensureDirectories().then(ensureDataFiles).then(() => {
   app.listen(PORT, () => {
     console.log(`🚀 AFM Analytics Server running on port ${PORT}`);
     console.log(`📊 API endpoints:`);
